@@ -1,0 +1,12 @@
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\bin\Debug\net6.0\BusinessObject.deps.json
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\bin\Debug\net6.0\BusinessObject.dll
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\bin\Debug\net6.0\BusinessObject.pdb
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\BusinessObject.csproj.AssemblyReference.cache
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\BusinessObject.GeneratedMSBuildEditorConfig.editorconfig
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\BusinessObject.AssemblyInfoInputs.cache
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\BusinessObject.AssemblyInfo.cs
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\BusinessObject.csproj.CoreCompileInputs.cache
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\BusinessObject.dll
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\refint\BusinessObject.dll
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\BusinessObject.pdb
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\BusinessObject\obj\Debug\net6.0\ref\BusinessObject.dll

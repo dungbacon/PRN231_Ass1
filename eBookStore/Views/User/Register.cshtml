@@ -1,0 +1,32 @@
+﻿@using DataAccess.DTO;
+@model UserRegisterRequestDTO
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+<div class="d-flex w-100 align-content-center align-items-center">
+    <div class="first w-50">
+        <img class="w-100 h-auto" src="https://freepngimg.com/save/6141-books-png-image-with-transparency-background/900x900" alt="background-img" />
+    </div>
+    <div class="second w-50 flex-column" style="margin-left: 50px;">
+        <div class="justify-content-center">
+            <h3 style="margin-left: 110px;">Book Stores Login</h3>
+            <form method="post" asp-action="RegisterUser">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input asp-for="Email" type="email" style="width: 70%; height:30px;" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" style="width: 70%; height: 30px;" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input asp-for="ConfirmPassword" type="password" style="width: 70%; height: 30px;" class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary">Sign up</button>
+                <a asp-action="Login" style="color: steelblue; cursor: pointer">Already an user?</a>
+            </form>
+        </div>
+    </div>
+</div>

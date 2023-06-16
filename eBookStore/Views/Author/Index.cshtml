@@ -1,0 +1,68 @@
+﻿@using DataAccess.DTO;
+@model AuthorViewModel
+
+<div>
+    <div>
+        <label>first name</label>
+        <input type="text" asp-for="Author.LastName" />
+    </div>
+     <div>
+        <label>first name</label>
+        <input type="text" asp-for="Author.FirstName" />
+    </div>
+     <div>
+        <label>first name</label>
+        <input type="text" asp-for="Author.Phone" />
+    </div>
+     <div>
+        <label>first name</label>
+        <input type="text" asp-for="Author.Address" />
+    </div>
+     <div>
+        <label>first name</label>
+        <input type="text" asp-for="Author.City" />
+    </div>
+     <div>
+        <label>first name</label>
+        <input type="text" asp-for="Author.State" />
+    </div>
+     <div>
+        <label>first name</label>
+        <input type="text" asp-for="Author.Zip" />
+    </div>
+     <div>
+        <label>first name</label>
+        <input type="email" asp-for="Author.EmailAddress" />
+    </div>
+
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.Author.AuthorId)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Author.FirstName)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Author.LastName)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Author.City)</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Authors)
+        {
+            <tr>
+                <th scope="row">1</th>
+                <td>@Html.DisplayFor(modelItem => item.AuthorId)</td>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.City)</td>
+                <td>
+                    @Html.ActionLink("Edit","Edit",new{id=item.AuthorId}) |
+                    @Html.ActionLink("Delete","Delete",new {id=item.AuthorId})
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
