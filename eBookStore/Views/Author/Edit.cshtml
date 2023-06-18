@@ -1,0 +1,58 @@
+﻿@using eBookStore.ViewModels;
+@model AuthorViewModel
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="EditAuthor" method="post">
+    <div class="form-row">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="lastName">Last Name</label>
+                <input asp-for="Author.LastName" type="text" class="form-control" id="lastName" placeholder="Last Name ...">
+                <input asp-for="Author.AuthorId" hidden="hidden" type="text" class="form-control" id="lastName" placeholder="Last Name ...">
+            </div>
+            <div class="col-md-6">
+                <label for="firstName">First Name</label>
+                <input asp-for="Author.FirstName" type="text" class="form-control" id="firstName" placeholder="First Name ...">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="email">Email</label>
+                <input asp-for="Author.EmailAddress" type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="col-md-6">
+                <label for="phoneNumber">Phone Number</label>
+                <input asp-for="Author.Phone" type="text" class="form-control" id="phoneNumber" placeholder="Phone number">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputAddress">Address</label>
+        <input asp-for="Author.Address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    </div>
+    <div class="form-row row">
+        <div class="form-group col-md-5">
+            <label for="inputCity">City</label>
+            <input asp-for="Author.City" type="text" class="form-control" id="inputCity">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+            <input asp-for="Author.State" type="text" id="inputState" class="form-control" />
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputZip">Zip</label>
+            <input asp-for="Author.Zip" type="text" class="form-control" id="inputZip">
+        </div>
+    </div>
+    <div class="mt-5">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-primary">Clear</button>
+    </div>
+</form>

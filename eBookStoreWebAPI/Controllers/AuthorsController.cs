@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -45,12 +44,11 @@ namespace eBookStoreWebAPI.Controllers
         [Authorize]
         public async Task<IActionResult> PostAuthor([FromBody] AuthorRequestDTO info)
         {
-            await repository.SaveAuthor(mapper.Map<Author>(info));
-            return Ok();
+            var data = await repository.SaveAuthor(mapper.Map<AuthorDTO>(info));
+            return Ok(data);
         }
 
         [HttpPut("authors/{id}")]
-        [Authorize]
         public async Task<IActionResult> UpdateAuthor([FromBody] AuthorRequestDTO info, int id)
         {
             var item = await repository.GetAuthorByID(id);
@@ -58,9 +56,9 @@ namespace eBookStoreWebAPI.Controllers
             {
                 return NotFound();
             }
-            var ans = mapper.Map(info, item);
-            await repository.UpdateAuthor(ans);
-            return Ok();
+            var ans = mapper.Map<AuthorDTO>(info);
+            var data = await repository.UpdateAuthor(ans);
+            return Ok(data);
         }
 
         [HttpDelete("authors/{id}")]
@@ -72,7 +70,7 @@ namespace eBookStoreWebAPI.Controllers
             {
                 return NotFound();
             }
-            await repository.DeleteAuthor(item);
+            await repository.DeleteAuthor(id);
             return Ok();
         }
     }

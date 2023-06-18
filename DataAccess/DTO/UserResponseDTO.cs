@@ -1,9 +1,8 @@
-﻿using BusinessObject.Models.Enum;
-
-namespace DataAccess.DTO
+﻿namespace DataAccess.DTO
 {
     public class UserResponseDTO
     {
-        public RoleType Role { get; set; }
+        public string? Email { get; set; }
+        public string? AccessToken { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace BusinessObject.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserResponseDTO>().ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.RoleDesc));
+            CreateMap<User, UserResponseDTO>().ReverseMap();
         }
     }
 }

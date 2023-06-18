@@ -1,50 +1,93 @@
-﻿@using DataAccess.DTO;
+﻿@using eBookStore.ViewModels;
 @model AuthorViewModel
 
-<div>
-    <div>
-        <label>first name</label>
-        <input type="text" asp-for="Author.LastName" />
-    </div>
-     <div>
-        <label>first name</label>
-        <input type="text" asp-for="Author.FirstName" />
-    </div>
-     <div>
-        <label>first name</label>
-        <input type="text" asp-for="Author.Phone" />
-    </div>
-     <div>
-        <label>first name</label>
-        <input type="text" asp-for="Author.Address" />
-    </div>
-     <div>
-        <label>first name</label>
-        <input type="text" asp-for="Author.City" />
-    </div>
-     <div>
-        <label>first name</label>
-        <input type="text" asp-for="Author.State" />
-    </div>
-     <div>
-        <label>first name</label>
-        <input type="text" asp-for="Author.Zip" />
-    </div>
-     <div>
-        <label>first name</label>
-        <input type="email" asp-for="Author.EmailAddress" />
-    </div>
 
-</div>
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
+<form asp-action="AddAuthor" method="post">
+    <div class="form-row">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="lastName">Last Name</label>
+                <input asp-for="Author.LastName" type="text" class="form-control" id="lastName" placeholder="Last Name ...">
+            </div>
+            <div class="col-md-6">
+                <label for="firstName">First Name</label>
+                <input asp-for="Author.FirstName" type="text" class="form-control" id="firstName" placeholder="First Name ...">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="email">Email</label>
+                <input asp-for="Author.EmailAddress" type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+            <div class="col-md-6">
+                <label for="phoneNumber">Phone Number</label>
+                <input asp-for="Author.Phone" type="text" class="form-control" id="phoneNumber" placeholder="Phone number">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputAddress">Address</label>
+        <input asp-for="Author.Address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    </div>
+    <div class="form-row row">
+        <div class="form-group col-md-5">
+            <label for="inputCity">City</label>
+            <input asp-for="Author.City" type="text" class="form-control" id="inputCity">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+            <input asp-for="Author.State" type="text" id="inputState" class="form-control"/>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputZip">Zip</label>
+            <input asp-for="Author.Zip" type="text" class="form-control" id="inputZip">
+        </div>
+    </div>
+    <div class="mt-5">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-primary">Clear</button>
+    </div>
+</form>
 
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">@Html.DisplayNameFor(model => model.Author.AuthorId)</th>
-            <th scope="col">@Html.DisplayNameFor(model => model.Author.FirstName)</th>
-            <th scope="col">@Html.DisplayNameFor(model => model.Author.LastName)</th>
-            <th scope="col">@Html.DisplayNameFor(model => model.Author.City)</th>
+            <th scope="col">
+                AuthorId
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="authorId" id="authorId" onchange="submitForm()" />
+                </form>
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Author.FirstName)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="firstName" id="firstName" onchange="submitForm()" />
+                </form>
+             </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Author.LastName)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="lastName" id="lastName" onchange="submitForm()" />
+                </form>
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Author.City)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="city" id="city" onchange="submitForm()" />
+                </form>
+            </th>
             <th scope="col">Actions</th>
         </tr>
     </thead>
@@ -52,17 +95,23 @@
         @foreach (var item in Model.Authors)
         {
             <tr>
-                <th scope="row">1</th>
-                <td>@Html.DisplayFor(modelItem => item.AuthorId)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorId)
+                </td>
                 <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
                 <td>@Html.DisplayFor(modelItem => item.LastName)</td>
                 <td>@Html.DisplayFor(modelItem => item.City)</td>
                 <td>
                     @Html.ActionLink("Edit","Edit",new{id=item.AuthorId}) |
-                    @Html.ActionLink("Delete","Delete",new {id=item.AuthorId})
+                    @Html.ActionLink("Delete","DeleteAuthor","Author",new {id=item.AuthorId})
                 </td>
             </tr>
         }
-
     </tbody>
 </table>
+
+<script>
+    function submitForm() {
+        document.getElementById('myForm').submit();
+    }
+</script>

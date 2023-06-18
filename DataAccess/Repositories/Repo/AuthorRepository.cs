@@ -1,17 +1,34 @@
-﻿using BusinessObject.Models;
+﻿using AutoMapper;
+using BusinessObject.Models;
 using DataAccess.DAO;
+using DataAccess.DTO;
 
 namespace DataAccess.Repositories.Repo
 {
     public class AuthorRepository : IAuthorRepository
     {
-        public async Task DeleteAuthor(Author p) => await AuthorDAO.Instance.DeleteAuthor(p);
-        public async Task<Author> GetAuthorByID(int id) => await AuthorDAO.Instance.GetAuthorByID(id);
-        public async Task<List<Author>> GetAuthors() => await AuthorDAO.Instance.GetAuthors();
-        public async Task<List<Author>> GetAuthorByFirstName(string s) => await AuthorDAO.Instance.GetAuthorByFirstName(s);
-        public async Task<List<Author>> GetAuthorByLastName(string s) => await AuthorDAO.Instance.GetAuthorByLastName(s);
-        public async Task<List<Author>> GetAuthorByCity(string s) => await AuthorDAO.Instance.GetAuthorByCity(s);
-        public async Task SaveAuthor(Author p) => await AuthorDAO.Instance.SaveAuthor(p);
-        public async Task UpdateAuthor(Author p) => await AuthorDAO.Instance.UpdateAuthor(p);
+        private readonly IMapper mapper;
+
+        public AuthorRepository(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        public async Task DeleteAuthor(int id) => await AuthorDAO.Instance.DeleteAuthor(id);
+        public async Task<AuthorDTO> GetAuthorByID(int id) => mapper.Map<AuthorDTO>(await AuthorDAO.Instance.GetAuthorByID(id));
+        public async Task<List<AuthorDTO>> GetAuthors() => mapper.Map<List<AuthorDTO>>(await AuthorDAO.Instance.GetAuthors());
+        public async Task<List<AuthorDTO>> GetAuthorByFirstName(string s) => mapper.Map<List<AuthorDTO>>(await AuthorDAO.Instance.GetAuthorByFirstName(s));
+        public async Task<List<AuthorDTO>> GetAuthorByLastName(string s) => mapper.Map<List<AuthorDTO>>(await AuthorDAO.Instance.GetAuthorByLastName(s));
+        public async Task<List<AuthorDTO>> GetAuthorByCity(string s) => mapper.Map<List<AuthorDTO>>(await AuthorDAO.Instance.GetAuthorByCity(s));
+        public async Task<AuthorDTO> SaveAuthor(AuthorDTO p)
+        {
+            var author = mapper.Map<Author>(p);
+            return mapper.Map<AuthorDTO>(await AuthorDAO.Instance.SaveAuthor(author));
+        }
+        public async Task<AuthorDTO> UpdateAuthor(AuthorDTO p)
+        {
+            var author = mapper.Map<Author>(p);
+            return mapper.Map<AuthorDTO>(await AuthorDAO.Instance.UpdateAuthor(author));
+        }
     }
 }

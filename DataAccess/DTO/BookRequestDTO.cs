@@ -5,6 +5,7 @@ namespace DataAccess.DTO
 {
     public class BookRequestDTO
     {
+        public int BookId { get; set; }
         [Required]
         [NotNull]
         public string Title { get; set; }

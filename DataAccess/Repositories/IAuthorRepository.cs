@@ -1,16 +1,16 @@
-﻿using BusinessObject.Models;
+﻿using DataAccess.DTO;
 
 namespace DataAccess.Repositories
 {
     public interface IAuthorRepository
     {
-        Task SaveAuthor(Author p);
-        Task<Author> GetAuthorByID(int id);
-        Task DeleteAuthor(Author p);
-        Task UpdateAuthor(Author p);
-        Task<List<Author>> GetAuthors();
-        Task<List<Author>> GetAuthorByFirstName(string s);
-        Task<List<Author>> GetAuthorByLastName(string s);
-        Task<List<Author>> GetAuthorByCity(string s);
+        Task<AuthorDTO> SaveAuthor(AuthorDTO p);
+        Task<AuthorDTO> GetAuthorByID(int id);
+        Task DeleteAuthor(int id);
+        Task<AuthorDTO> UpdateAuthor(AuthorDTO p);
+        Task<List<AuthorDTO>> GetAuthors();
+        Task<List<AuthorDTO>> GetAuthorByFirstName(string s);
+        Task<List<AuthorDTO>> GetAuthorByLastName(string s);
+        Task<List<AuthorDTO>> GetAuthorByCity(string s);
     }
 }

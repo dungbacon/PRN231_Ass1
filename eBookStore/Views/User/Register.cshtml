@@ -3,30 +3,53 @@
 
 @{
     ViewData["Title"] = "Login Page";
+    Layout = null;
 }
-<div class="d-flex w-100 align-content-center align-items-center">
-    <div class="first w-50">
-        <img class="w-100 h-auto" src="https://freepngimg.com/save/6141-books-png-image-with-transparency-background/900x900" alt="background-img" />
-    </div>
-    <div class="second w-50 flex-column" style="margin-left: 50px;">
-        <div class="justify-content-center">
-            <h3 style="margin-left: 110px;">Book Stores Login</h3>
-            <form method="post" asp-action="RegisterUser">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input asp-for="Email" type="email" style="width: 70%; height:30px;" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input asp-for="Password" type="password" style="width: 70%; height: 30px;" class="form-control" id="exampleInputPassword1">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input asp-for="ConfirmPassword" type="password" style="width: 70%; height: 30px;" class="form-control" id="exampleInputPassword1">
-                </div>
-                <button type="submit" class="btn btn-primary">Sign up</button>
-                <a asp-action="Login" style="color: steelblue; cursor: pointer">Already an user?</a>
-            </form>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    @if (ViewData["Message"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @ViewData["Message"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="d-flex w-100 align-content-center align-items-center">
+        <div class="first w-50">
+            <img class="w-100 h-auto" src="https://freepngimg.com/save/6141-books-png-image-with-transparency-background/900x900" alt="background-img" />
+        </div>
+        <div class="second w-50 flex-column" style="margin-left: 50px;">
+            <div class="justify-content-center">
+                <h3 style="margin-left: 110px;">Book Stores Login</h3>
+                <form method="post" asp-action="RegisterUser">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input asp-for="Email" type="email" style="width: 70%; height:30px;" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input asp-for="Password" type="password" style="width: 70%; height: 30px;" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input asp-for="ConfirmPassword" type="password" style="width: 70%; height: 30px;" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign up</button>
+                    <a asp-action="Login" asp-controller="UserController" style="color: steelblue; cursor: pointer">Already an user?</a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿@using eBookStore.ViewModels
+@model PublisherViewModel
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="AddPublisher" method="post">
+    <div class="form-row">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="lastName">Last Name</label>
+                <input asp-for="Publisher.PubName" type="text" class="form-control" id="lastName" placeholder="Last Name ...">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input asp-for="Publisher.City" type="text" class="form-control" id="inputCity">
+            </div>
+        </div>
+    </div>
+    <div class="form-row row">
+        
+        <div class="form-group col-md-6">
+            <label for="inputState">State</label>
+            <input asp-for="Publisher.State" type="text" id="inputState" class="form-control" />
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputZip">Zip</label>
+            <input asp-for="Publisher.Country" type="text" class="form-control" id="inputZip">
+        </div>
+    </div>
+    <div class="mt-5">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-primary">Clear</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Publisher.PubId)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="PubId" id="PubId" onchange="submitForm()" />
+                </form>
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Publisher.PubName)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="PubName" id="PubName" onchange="submitForm()" />
+                </form>
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Publisher.City)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="City" id="City" onchange="submitForm()" />
+                </form>
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Publisher.State)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="State" id="State" onchange="submitForm()" />
+                </form>
+            </th> 
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Publisher.Country)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="Country" id="Country" onchange="submitForm()" />
+                </form>
+            </th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Publishers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PubId)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.PubName)</td>
+                <td>@Html.DisplayFor(modelItem => item.City)</td>
+                <td>@Html.DisplayFor(modelItem => item.State)</td>
+                <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                <td>
+                    @Html.ActionLink("Edit","Edit",new{id=item.PubId}) |
+                    @Html.ActionLink("Delete","Delete","Publisher",new {id=item.PubId})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function submitForm() {
+        document.getElementById('myForm').submit();
+    }
+</script>

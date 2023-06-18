@@ -1,0 +1,41 @@
+﻿@using eBookStore.ViewModels;
+@model PublisherViewModel
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="EditPublisher" method="post">
+    <div class="form-row">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="lastName">Last Name</label>
+                <input asp-for="Publisher.PubName" type="text" class="form-control" id="PubName" placeholder="Publisher Name">
+                <input asp-for="Publisher.PubId" hidden="hidden" type="text" class="form-control" id="PubId">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input asp-for="Publisher.City" type="text" class="form-control" id="inputCity">
+            </div>
+        </div>
+    </div>
+    <div class="form-row row">
+
+        <div class="form-group col-md-6">
+            <label for="inputState">State</label>
+            <input asp-for="Publisher.State" type="text" id="inputState" class="form-control" />
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputZip">Zip</label>
+            <input asp-for="Publisher.Country" type="text" class="form-control" id="inputZip">
+        </div>
+    </div>
+    <div class="mt-5">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-primary">Clear</button>
+    </div>
+</form>

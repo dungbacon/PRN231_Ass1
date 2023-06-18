@@ -5,6 +5,8 @@ namespace DataAccess.DTO
 {
     public class AuthorRequestDTO
     {
+
+        public int AuthorId { get; set; }
         [Required]
         [NotNull]
         public string LastName { get; set; }

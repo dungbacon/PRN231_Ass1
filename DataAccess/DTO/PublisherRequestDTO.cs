@@ -5,6 +5,7 @@ namespace DataAccess.DTO
 {
     public class PublisherRequestDTO
     {
+        public int PubId { get; set; }
         [Required]
         [NotNull]
         public string PubName { get; set; }

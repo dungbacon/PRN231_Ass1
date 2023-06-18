@@ -58,7 +58,7 @@ namespace DataAccess.DAO
             return book;
         }
 
-        public async Task SaveBook(Book book)
+        public async Task<Book> SaveBook(Book book)
         {
             try
             {
@@ -66,6 +66,7 @@ namespace DataAccess.DAO
                 {
                     await context.Books.AddAsync(book);
                     context.SaveChanges();
+                    return await context.Books.Where(s => s.BookId == book.BookId).FirstOrDefaultAsync();
                 }
             }
             catch (Exception e)
@@ -74,7 +75,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task UpdateBook(Book book)
+        public async Task<Book> UpdateBook(Book book)
         {
             try
             {
@@ -82,6 +83,7 @@ namespace DataAccess.DAO
                 {
                     context.Entry<Book>(book).State = EntityState.Modified;
                     context.SaveChanges();
+                    return await context.Books.Where(s => s.BookId == book.BookId).FirstOrDefaultAsync();
                 }
             }
             catch (Exception e)
@@ -90,12 +92,13 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task DeleteBook(Book book)
+        public async Task DeleteBook(int id)
         {
             try
             {
                 using (var context = new EBookStoreDbContext())
                 {
+                    var book = await context.Books.Where(s => s.BookId == id).FirstOrDefaultAsync();
                     context.Books.Remove(book);
                     context.SaveChanges();
                 }

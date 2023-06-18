@@ -108,7 +108,7 @@ namespace DataAccess.DAO
             return authors;
         }
 
-        public async Task SaveAuthor(Author author)
+        public async Task<Author> SaveAuthor(Author author)
         {
             try
             {
@@ -116,6 +116,7 @@ namespace DataAccess.DAO
                 {
                     await context.Authors.AddAsync(author);
                     context.SaveChanges();
+                    return await context.Authors.FirstOrDefaultAsync(x => x.AuthorId == author.AuthorId);
                 }
             }
             catch (Exception e)
@@ -124,7 +125,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task UpdateAuthor(Author author)
+        public async Task<Author> UpdateAuthor(Author author)
         {
             try
             {
@@ -132,6 +133,7 @@ namespace DataAccess.DAO
                 {
                     context.Entry(author).State = EntityState.Modified;
                     context.SaveChanges();
+                    return await context.Authors.FirstOrDefaultAsync(x => x.AuthorId == author.AuthorId);
                 }
             }
             catch (Exception e)
@@ -140,13 +142,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task DeleteAuthor(Author author)
+        public async Task DeleteAuthor(int id)
         {
             try
             {
                 using (var context = new EBookStoreDbContext())
                 {
-                    context.Authors.Remove(author);
+                    var item = await context.Authors.Where(s => s.AuthorId == id).FirstOrDefaultAsync();
+                    context.Authors.Remove(item);
                     context.SaveChanges();
                 }
             }

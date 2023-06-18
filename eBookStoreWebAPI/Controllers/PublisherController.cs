@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using BusinessObject.Models;
-using BusinessObject.Models.Enum;
 using DataAccess.DTO;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -43,10 +41,10 @@ namespace eBookStoreWebAPI.Controllers
 
         [HttpPost("publishers/create")]
         [Authorize]
-        public IActionResult PostPublisher([FromBody] PublisherRequestDTO info)
+        public async Task<IActionResult> PostPublisher([FromBody] PublisherRequestDTO info)
         {
-            repository.SavePublisher(mapper.Map<Publisher>(info));
-            return Ok();
+            var data = await repository.SavePublisher(mapper.Map<PublisherDTO>(info));
+            return Ok(data);
         }
 
         [HttpPut("publishers/{id}")]
@@ -58,31 +56,22 @@ namespace eBookStoreWebAPI.Controllers
             {
                 return NotFound();
             }
-            var ans = mapper.Map(info, item);
-            await repository.UpdatePublisher(ans);
-            return Ok();
+            var ans = mapper.Map<PublisherDTO>(info);
+            var data = await repository.UpdatePublisher(ans);
+            return Ok(data);
         }
 
         [HttpDelete("publishers/{id}")]
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeletePublisher(int id)
         {
-            var session = HttpContext.Session;
-            var role = session.GetString("role");
-            if (role == RoleType.admin.ToString())
+            var item = await repository.GetPublisherByID(id);
+            if (item == null)
             {
-                var item = await repository.GetPublisherByID(id);
-                if (item == null)
-                {
-                    return NotFound();
-                }
-                await repository.DeletePublisher(item);
-                return Ok();
+                return NotFound();
             }
-            else
-            {
-                return Unauthorized();
-            }
+            await repository.DeletePublisher(id);
+            return Ok();
         }
     }
 }

@@ -1,13 +1,9 @@
-﻿using AutoMapper;
-using BusinessObject.Models;
+﻿using BusinessObject.Models;
 using DataAccess.DTO;
 using DataAccess.Repositories;
+using eBookStoreWebAPI.Configs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace eBookStoreWebAPI.Controllers
 {
@@ -17,13 +13,11 @@ namespace eBookStoreWebAPI.Controllers
     {
 
         private readonly IUserRepository repository;
-        private readonly IMapper mapper;
         private IConfiguration config;
 
-        public UserController(IUserRepository _repository, IMapper _mapper, IConfiguration _config)
+        public UserController(IUserRepository _repository, IConfiguration _config)
         {
             repository = _repository;
-            mapper = _mapper;
             config = _config;
         }
 
@@ -39,37 +33,21 @@ namespace eBookStoreWebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> AuthenticateUser([FromBody] UserRequestDTO info)
         {
-            if (info != null)
+            if (info == null) return BadRequest();
+
+            var data = await repository.AuthenticateUser(info.Email, info.Password);
+
+            if (data == null) return Unauthorized();
+
+            var accessToken = JwtConfig.CreateToken(data, config);
+
+            var response = new UserResponseDTO
             {
-                var data = await repository.AuthenticateUser(info.Email, info.Password);
-                if (data != null)
-                {
-                    var claims = new[]
-                    {
-                        new Claim(JwtRegisteredClaimNames.Sub, config["Jwt:Subject"]),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("UserId", data.UserId.ToString()),
-                        new Claim("Email", data.EmailAddress),
-                        new Claim("Role", data.Role.RoleDesc.ToString()),
-                    };
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
-                    var signin = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                    var token = new JwtSecurityToken(
-                            config["Jwt:Issuer"],
-                            config["Jwt:Audience"],
-                            claims,
-                            expires: DateTime.Now.AddMinutes(30),
-                            signingCredentials: signin
-                        );
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
-                }
-                else
-                {
-                    return Unauthorized();
-                }
-            }
-            return BadRequest("Must not be left empty!");
+                Email = data.EmailAddress,
+                AccessToken = accessToken
+            };
+
+            return Ok(response);
         }
 
         [HttpPost("register")]
@@ -78,12 +56,12 @@ namespace eBookStoreWebAPI.Controllers
         {
             if (info.Password != info.ConfirmPassword)
             {
-                return Conflict("Password confirm is not matching!");
+                return BadRequest();
             }
             var data = await repository.GetUserByEmail(info.Email);
             if (data != null)
             {
-                return Conflict("An account with the provided username already exists.");
+                return BadRequest();
             }
             else
             {

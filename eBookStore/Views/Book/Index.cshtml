@@ -1,0 +1,115 @@
+﻿@using eBookStore.ViewModels;
+@model BookViewModel
+
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="AddBook" method="post">
+    <div class="form-row">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="Title">Title</label>
+                <input asp-for="Book.Title" type="text" class="form-control" id="Title" placeholder="Title">
+            </div>
+            <div class="col-md-6">
+                <label for="Type">Type</label>
+                <input asp-for="Book.Type" type="text" class="form-control" id="Type" placeholder="Type">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="PubId">PubId</label>
+                <input asp-for="Book.PubId" type="text" class="form-control" id="PubId" placeholder="PubId">
+            </div>
+            <div class="col-md-6">
+                <label for="Price">Price</label>
+                <input asp-for="Book.Price" type="text" class="form-control" id="Price" placeholder="Price">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Advance">Advance</label>
+        <input asp-for="Book.Advance" type="text" class="form-control" id="Advance" placeholder="Advance">
+    </div>
+    <div class="form-row row">
+        <div class="form-group col-md-5">
+            <label for="Royalty">Royalty</label>
+            <input asp-for="Book.Royalty" type="text" class="form-control" id="Royalty">
+        </div>
+        <div class="form-group col-md-4">
+            <label for="YTDSales">YTDSales</label>
+            <input asp-for="Book.YTDSales" type="text" id="YTDSales" class="form-control" />
+        </div>
+        <div class="form-group col-md-3">
+            <label for="Notes">Notes</label>
+            <input asp-for="Book.Notes" type="text" class="form-control" id="Notes">
+        </div>
+    </div>
+    <div class="form-row row">
+        <div class="form-group col-md-6">
+            <label for="PublishedDate">PublishedDate</label>
+            <input asp-for="Book.PublishedDate" type="datetime" class="form-control" id="PublishedDate">
+        </div>
+    </div>
+    <div class="mt-5">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-primary">Clear</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Book.BookId)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Book.Title)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="Title" id="Title" onchange="submitForm()" />
+                </form>
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Book.Price)
+                <br />
+                <form id="myForm" method="get" asp-action="Index">
+                    <input type="text" name="Price" id="Price" onchange="submitForm()" />
+                </form>
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Book.YTDSales)
+            </th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookId)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.YTDSales)</td>
+                <td>
+                    @Html.ActionLink("Edit","Edit",new{id=item.BookId}) |
+                    @Html.ActionLink("Delete","Delete","Book",new {id=item.BookId})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function submitForm() {
+        document.getElementById('myForm').submit();
+    }
+</script>

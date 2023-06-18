@@ -91,7 +91,7 @@ namespace DataAccess.DAO
             return publisher;
         }
 
-        public async Task SavePublisher(Publisher publisher)
+        public async Task<Publisher> SavePublisher(Publisher publisher)
         {
             try
             {
@@ -99,6 +99,7 @@ namespace DataAccess.DAO
                 {
                     await context.Publishers.AddAsync(publisher);
                     context.SaveChanges();
+                    return await context.Publishers.Where(s => s.PubId == publisher.PubId).FirstOrDefaultAsync();
                 }
             }
             catch (Exception e)
@@ -107,14 +108,15 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task UpdatePublisher(Publisher publisher)
+        public async Task<Publisher> UpdatePublisher(Publisher publisher)
         {
             try
             {
                 using (var context = new EBookStoreDbContext())
                 {
-                    context.Entry<Publisher>(publisher).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    context.Entry<Publisher>(publisher).State = EntityState.Modified;
                     context.SaveChanges();
+                    return await context.Publishers.Where(s => s.PubId == publisher.PubId).FirstOrDefaultAsync();
                 }
             }
             catch (Exception e)
@@ -123,12 +125,13 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task DeletePublisher(Publisher publisher)
+        public async Task DeletePublisher(int id)
         {
             try
             {
                 using (var context = new EBookStoreDbContext())
                 {
+                    var publisher = await context.Publishers.Where(s => s.PubId == id).FirstOrDefaultAsync();
                     context.Publishers.Remove(publisher);
                     context.SaveChanges();
                 }

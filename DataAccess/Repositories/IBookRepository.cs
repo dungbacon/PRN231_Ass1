@@ -1,13 +1,13 @@
-﻿using BusinessObject.Models;
+﻿using DataAccess.DTO;
 
 namespace DataAccess.Repositories
 {
     public interface IBookRepository
     {
-        Task SaveBook(Book p);
-        Task<Book> GetBookByID(int id);
-        Task DeleteBook(Book p);
-        Task UpdateBook(Book p);
-        Task<List<Book>> GetBooks();
+        Task<BookDTO> SaveBook(BookDTO p);
+        Task<BookDTO> GetBookByID(int id);
+        Task DeleteBook(int id);
+        Task<BookDTO> UpdateBook(BookDTO p);
+        Task<List<BookDTO>> GetBooks();
     }
 }

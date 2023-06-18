@@ -10,6 +10,10 @@ namespace DataAccess.Profiles
         {
             CreateMap<Publisher, PublisherRequestDTO>().ReverseMap();
             CreateMap<PublisherRequestDTO, Publisher>().ReverseMap();
+            CreateMap<PublisherDTO, Publisher>().ReverseMap();
+            CreateMap<Publisher, PublisherDTO>().ReverseMap();
+            CreateMap<PublisherRequestDTO, PublisherDTO>().ReverseMap();
+            CreateMap<PublisherDTO, PublisherRequestDTO>().ReverseMap();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using DataAccess.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace eBookStore.Controllers
 {
@@ -8,7 +9,6 @@ namespace eBookStore.Controllers
     {
         private readonly HttpClient client = null;
         private string UserApiUrl = "";
-
         public UserController()
         {
             client = new HttpClient();
@@ -17,13 +17,13 @@ namespace eBookStore.Controllers
             UserApiUrl = "https://localhost:7263/api";
         }
 
-        [HttpGet("/login")]
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpGet("/register")]
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -35,8 +35,14 @@ namespace eBookStore.Controllers
             HttpResponseMessage response = await client.PostAsJsonAsync(UserApiUrl + "/login", p);
             if (response.IsSuccessStatusCode)
             {
-                string strContent = await response.Content.ReadAsStringAsync();
-                HttpContext.Session.SetString("JwtToken", strContent);
+                string content = await response.Content.ReadAsStringAsync();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                UserResponseDTO? user = JsonSerializer.Deserialize<UserResponseDTO>(content, options);
+                string? token = user.AccessToken;
+                HttpContext.Session.SetString("JwtToken", token);
                 return RedirectToAction("Index", "Author");
             }
             else
@@ -53,11 +59,11 @@ namespace eBookStore.Controllers
             if (response.IsSuccessStatusCode)
             {
                 ViewData["Message"] = "Register successfully! Please sign in~";
-                return Redirect("~/login");
+                return View(nameof(Login));
             }
             else
             {
-                return RedirectToAction(nameof(Register));
+                return View(nameof(Register));
             }
 
         }
