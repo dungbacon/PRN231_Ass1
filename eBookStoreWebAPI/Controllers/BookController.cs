@@ -3,6 +3,7 @@ using DataAccess.DTO;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace eBookStoreWebAPI.Controllers
 {
@@ -22,6 +23,7 @@ namespace eBookStoreWebAPI.Controllers
 
         [HttpGet("books")]
         [Authorize]
+        [EnableQuery]
         public async Task<IActionResult> GetBooks()
         {
             var list = await repository.GetBooks();
@@ -30,6 +32,7 @@ namespace eBookStoreWebAPI.Controllers
 
         [HttpGet("books/{id}")]
         [Authorize]
+        [EnableQuery]
         public async Task<IActionResult> GetBookByID(int id)
         {
             var item = await repository.GetBookByID(id);

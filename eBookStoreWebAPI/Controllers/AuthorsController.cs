@@ -3,6 +3,7 @@ using DataAccess.DTO;
 using DataAccess.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace eBookStoreWebAPI.Controllers
 {
@@ -22,6 +23,7 @@ namespace eBookStoreWebAPI.Controllers
 
         [HttpGet("authors")]
         [Authorize]
+        [EnableQuery]
         public async Task<IActionResult> GetAuthors()
         {
             var list = await repository.GetAuthors();
@@ -30,6 +32,7 @@ namespace eBookStoreWebAPI.Controllers
 
         [HttpGet("authors/{id}")]
         [Authorize]
+        [EnableQuery]
         public async Task<IActionResult> GetAuthorByID(int id)
         {
             var item = await repository.GetAuthorByID(id);
@@ -42,13 +45,14 @@ namespace eBookStoreWebAPI.Controllers
 
         [HttpPost("authors/create")]
         [Authorize]
-        public async Task<IActionResult> PostAuthor([FromBody] AuthorRequestDTO info)
+        public async Task<IActionResult> PostAuthor([FromBody] AuthorDTO info)
         {
-            var data = await repository.SaveAuthor(mapper.Map<AuthorDTO>(info));
+            var data = await repository.SaveAuthor(info);
             return Ok(data);
         }
 
         [HttpPut("authors/{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateAuthor([FromBody] AuthorRequestDTO info, int id)
         {
             var item = await repository.GetAuthorByID(id);

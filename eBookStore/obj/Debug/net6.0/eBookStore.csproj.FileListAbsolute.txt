@@ -300,3 +300,8 @@ E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\e
 E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\eBookStore\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\eBookStore\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\eBookStore\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\eBookStore\bin\Debug\net6.0\Microsoft.AspNetCore.OData.dll
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\eBookStore\bin\Debug\net6.0\Microsoft.OData.Core.dll
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\eBookStore\bin\Debug\net6.0\Microsoft.OData.Edm.dll
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\eBookStore\bin\Debug\net6.0\Microsoft.OData.ModelBuilder.dll
+E:\studyplace\Sum23\PRN231\codespace\assignment1\Assigment02Solution_ HE160721\eBookStore\bin\Debug\net6.0\Microsoft.Spatial.dll
