@@ -115,7 +115,7 @@ namespace DataAccess.DAO
             {
                 using (var context = new EBookStoreDbContext())
                 {
-                    context.Entry<User>(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    context.Entry<User>(user).State = EntityState.Modified;
                     context.SaveChanges();
                 }
             }

@@ -74,7 +74,7 @@ namespace eBookStoreWebAPI.Controllers
                     MiddleName = "",
                     LastName = "",
                     RoleId = 2,
-                    PubId = 1,
+                    PubId = 3,
                     HireDate = DateTime.Now,
                 };
                 await repository.SaveUser(user);

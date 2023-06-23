@@ -17,16 +17,14 @@ namespace eBookStore.Controllers
             UserApiUrl = "https://localhost:7263/api";
         }
 
-        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            return View("Register");
         }
 
         [HttpPost]
